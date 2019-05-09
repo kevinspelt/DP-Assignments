@@ -8,7 +8,9 @@ package P1;
 
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class ReizigerDaoImpl implements ReizigerDao{
     private List<Reiziger> reizigers = new ArrayList<>();
@@ -21,12 +23,15 @@ public class ReizigerDaoImpl implements ReizigerDao{
 
         r1.setNaam("Kevin");
         r1.setGbdatum(Date.valueOf("2002-06-15"));
+        reizigers.add(r1);
 
         r2.setNaam("Fayssal");
         r2.setGbdatum(Date.valueOf("2001-01-16"));
+        reizigers.add(r2);
 
         r3.setNaam("Djurryen");
         r3.setGbdatum(Date.valueOf("2001-07-13"));
+        reizigers.add(r3);
     }
 
     @Override
@@ -51,17 +56,13 @@ public class ReizigerDaoImpl implements ReizigerDao{
     }
 
     @Override
-    public Reiziger save(Reiziger reiziger) {
-        //Add parameter reiziger to reizigers
+    public void save(Reiziger reiziger) {
         reizigers.add(reiziger);
-        //Return added reiziger
-        return reiziger;
     }
 
     @Override
-    public Reiziger update(Reiziger reiziger) {
+    public void update(Reiziger reiziger) {
         reizigers.add(reiziger);
-        return reiziger;
     }
 
     @Override
