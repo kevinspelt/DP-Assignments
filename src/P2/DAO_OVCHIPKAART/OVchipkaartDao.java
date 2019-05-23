@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OVchipkaartDao {
     List<OVchipkaart> findAll();
-    OVchipkaart findByReiziger(int reizigerID);
+    List<OVchipkaart> findByReiziger(int reizigerID);
     OVchipkaart save(OVchipkaart ovChipkaart);
     OVchipkaart update(OVchipkaart ovChipkaart);
     OVchipkaart delete(OVchipkaart ovChipkaart);

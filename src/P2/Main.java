@@ -35,13 +35,13 @@ public class Main {
 
         //Update o1
         System.out.println("Update o1");
-        o1.setKaartnummer(79302);
+        o1.setKlasse(1);
         ovChipkaartOracleDao.update(o1);
         ovChipkaartOracleDao.findAll().forEach(ovChipkaart -> System.out.println(ovChipkaart.getKaartnummer()));
 
         //Get ovchipkaart met reizigerid
         System.out.println("Get ovchipkaart met reizigerid");
-        System.out.println(ovChipkaartOracleDao.findByReiziger(6).getKaartnummer());
+        System.out.println(ovChipkaartOracleDao.findByReiziger(6));
 
         //Delete o1
         System.out.println("Delete o1");
@@ -54,3 +54,4 @@ public class Main {
         reizigerOracleDao.findAll().forEach(reiziger -> System.out.println(reiziger.getVoorletters() + " " + reiziger.getAchternaam()));
     }
 }
+

@@ -32,8 +32,8 @@ public class OVchipkaartOracleDaoImpl extends OracleBaseDao implements OVchipkaa
         return ovChipkaarten;
     }
     @Override
-    public OVchipkaart findByReiziger(int reizigerID) {
-        OVchipkaart ovChipkaart = null;
+    public List<OVchipkaart> findByReiziger(int reizigerID) {
+        List<OVchipkaart> ovChipkaarten = null;
         try (Connection con = OracleBaseDao.getConnection()) {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM OV_CHIPKAART WHERE REIZIGERID=?");
             stmt.setInt(1, reizigerID);
@@ -41,18 +41,19 @@ public class OVchipkaartOracleDaoImpl extends OracleBaseDao implements OVchipkaa
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
-                ovChipkaart = new OVchipkaart(
+                OVchipkaart ovChipkaart = new OVchipkaart(
                         rs.getInt("kaartnummer"),
                         rs.getString("geldigtot"),
                         rs.getInt("klasse"),
                         rs.getFloat("saldo"),
                         rs.getInt("reizigerID"));
+                ovChipkaarten.add(ovChipkaart);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return ovChipkaart;
+        return ovChipkaarten;
     }
 
     @Override
@@ -77,7 +78,7 @@ public class OVchipkaartOracleDaoImpl extends OracleBaseDao implements OVchipkaa
         try (Connection con = super.getConnection()) {
             PreparedStatement stmt = con.prepareStatement(
                     "UPDATE OV_CHIPKAART SET geldigtot=?, klasse=?, saldo=?, reizigerID=? where kaartnummer=?");
-            stmt.setString(1, ovChipkaart.getGeldigTot());
+            stmt.setDate(1, Date.valueOf(ovChipkaart.getGeldigTot()));
             stmt.setInt(2, ovChipkaart.getKlasse());
             stmt.setDouble(3, ovChipkaart.getSaldo());
             stmt.setInt(4, ovChipkaart.getReizigerID());
