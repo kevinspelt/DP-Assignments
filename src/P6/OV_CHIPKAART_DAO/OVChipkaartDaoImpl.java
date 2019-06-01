@@ -16,6 +16,7 @@ public class OVChipkaartDaoImpl extends SQLiteBaseDao implements OVChipkaartDao 
         OVChipkaart ovChipkaart = new OVChipkaart(
                 rs.getInt("kaartnummer"),
                 rs.getInt("klasse"),
+                rs.getDouble("saldo"),
                 rs.getInt("reizigerID"));
         return ovChipkaart;
     }
@@ -32,7 +33,7 @@ public class OVChipkaartDaoImpl extends SQLiteBaseDao implements OVChipkaartDao 
         try (Connection conn = super.getConnection()){
             PreparedStatement stmt = createOVChipkaartStatement(conn.prepareStatement("" +
                     "INSERT INTO OV_CHIPKAART " +
-                    "VALUES(?,?,?)"), ovChipkaart);
+                    "VALUES(?,?,?,?)"), ovChipkaart);
             return stmt.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +62,7 @@ public class OVChipkaartDaoImpl extends SQLiteBaseDao implements OVChipkaartDao 
         try (Connection conn = super.getConnection()){
             PreparedStatement stmt = createOVChipkaartStatement(conn.prepareStatement("" +
                     "UPDATE OV_CHIPKAART " +
-                    "SET kaartnummer=?, klasse=?, reizigerID=? " +
+                    "SET kaartnummer=?, klasse=?, saldo=?, reizigerID=? " +
                     "WHERE kaartnummer="+ovChipkaart.getKaartnummer()), ovChipkaart);
             return stmt.execute();
         } catch (Exception e) {

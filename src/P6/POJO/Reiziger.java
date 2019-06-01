@@ -3,11 +3,13 @@ package P6.POJO;
 public class Reiziger {
     private int reizigerID;
     private String voorl;
+    private String tussenvoegsel;
     private String naam;
 
-    public Reiziger(int reizigerID, String voorl, String naam) {
+    public Reiziger(int reizigerID, String voorl, String tussenvoegsel, String naam) {
         this.reizigerID = reizigerID;
         this.voorl = voorl;
+        this.tussenvoegsel = tussenvoegsel;
         this.naam = naam;
     }
 
@@ -25,6 +27,14 @@ public class Reiziger {
 
     public void setVoorl(String voorl) {
         this.voorl = voorl;
+    }
+
+    public String getTussenvoegsel() {
+        return tussenvoegsel;
+    }
+
+    public void setTussenvoegsel(String tussenvoegsel) {
+        this.tussenvoegsel = tussenvoegsel;
     }
 
     public String getNaam() {

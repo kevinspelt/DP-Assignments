@@ -1,6 +1,5 @@
 package P6.REIZIGER_DAO;
 
-import P6.POJO.OVChipkaart;
 import P6.POJO.Reiziger;
 import P6.SQLiteBaseDao;
 
@@ -17,6 +16,7 @@ public class ReizigerDaoImpl extends SQLiteBaseDao implements ReizigerDao {
         Reiziger reiziger = new Reiziger(
                 rs.getInt("reizigerID"),
                 rs.getString("naam"),
+                rs.getString("tussenvoegsel"),
                 rs.getString("voorl"));
         return reiziger;
     }
@@ -32,7 +32,7 @@ public class ReizigerDaoImpl extends SQLiteBaseDao implements ReizigerDao {
         try (Connection conn = super.getConnection()){
             PreparedStatement stmt = createReizigerStatement(conn.prepareStatement("" +
                     "INSERT INTO REIZIGER " +
-                    "VALUES(?,?,?)"), reiziger);
+                    "VALUES(?,?,?,?)"), reiziger);
             return stmt.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +45,8 @@ public class ReizigerDaoImpl extends SQLiteBaseDao implements ReizigerDao {
         Reiziger reiziger =  null;
         try (Connection conn = super.getConnection()){
             PreparedStatement stmt = conn.prepareStatement("" +
-                    "SELECT FROM REIZIGER " +
+                    "SELECT * " +
+                    "FROM REIZIGER " +
                     "WHERE reizigerID=" + reizigerID);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()) {
@@ -62,7 +63,7 @@ public class ReizigerDaoImpl extends SQLiteBaseDao implements ReizigerDao {
         try (Connection conn = super.getConnection()){
             PreparedStatement stmt = createReizigerStatement(conn.prepareStatement("" +
                     "UPDATE REIZIGER " +
-                    "SET reizigerID=?, naam=?, voorl=? " +
+                    "SET reizigerID=?, voorl=?, tussenvoegsel=?, naam=? " +
                     "WHERE reizigerID=" + reiziger.getReizigerID()), reiziger);
             return stmt.execute();
         } catch (Exception e) {
